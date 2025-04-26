@@ -1,0 +1,39 @@
+@startuml
+
+interface TowerMediator <<interface>> {
+  + broadcast(msg: String, sender: Aircraft): void
+  + requestRunway(a: Aircraft): boolean
+}
+
+abstract class Aircraft <<abstract>> {
+  - id: String
+  - tower: TowerMediator
+  + receive(msg: String): void
+  + send(msg: String): void
+  + requestRunway(): boolean
+}
+
+class ControlTower <<mediator>> {
+  - landingQueue: Queue<Aircraft>
+  - takeoffQueue: Queue<Aircraft>
+  - emergencyStack: Deque<Aircraft>
+  + broadcast(msg: String, sender: Aircraft): void
+  + requestRunway(a: Aircraft): boolean
+}
+
+class PassengerPlane
+class CargoPlane
+class Helicopter
+class SimulationDriver
+
+TowerMediator <|.. ControlTower
+Aircraft <|-- PassengerPlane
+Aircraft <|-- CargoPlane
+Aircraft <|-- Helicopter
+
+ControlTower o-- "*" Aircraft : manages
+
+SimulationDriver ..> TowerMediator : creates
+SimulationDriver ..> Aircraft : uses
+
+@enduml

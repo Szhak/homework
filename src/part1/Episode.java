@@ -1,0 +1,21 @@
+package part1;
+
+public class Episode {
+    private final String title;
+    private final int runtimeSec;
+
+    public Episode(String title, int runtimeSec) {
+        this.title = title;
+        this.runtimeSec = runtimeSec;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    @Override
+    public String toString() {
+        return title + " (" + runtimeSec + " sec)";
+    }
+}
+
